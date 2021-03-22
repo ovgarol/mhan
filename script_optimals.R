@@ -1,3 +1,5 @@
+source('model2.R')
+
 n.total = 31
 model.list = NULL
 optimal.list = NULL
