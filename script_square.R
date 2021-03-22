@@ -45,9 +45,6 @@ mtext(mu.label,cex=1,adj=0)
 
 model.list = matrix(unlist(model.list),nrow=length(m))
 
-#plot(model.list[1,],model.list[9,])
-#plot(model.list[12,],model.list[13,],cex=model.list[9,])
-
 if(F){ # to plot a border around a value
   mu.limit = 0.01
   k=chull(fA.list[mu.list>mu.limit],fH.list[mu.list>mu.limit])

@@ -1,4 +1,3 @@
-setwd("~/Documents/AAA-mixotrophy")
 library(latex2exp)
 library(scales)
 
@@ -36,17 +35,20 @@ xi.N = 0.5 # exudation cost mol-C/mol-N
 Q.N.prima = 0.15 # nutrient quota (redfield for N) mol-N/mol-C
 E.N.max = 1.5 # maximum exudation rate 1/d
 
+### allocation initial conditions
+
 f.A = 0.33 # autotrophic allocation
 f.H = 0.33 # heterotrophi allocation
 f.N = 1.-f.A-f.H # nutrient allocation 
 
 ### initial conditions
+
 Q.N = .5*Q.N.max # initial nutrient quota mol-N/mol-C
 I = 250 # light intensity uE/m2/d
 x = 1000e-6 # prey biomass concentration mol/L
 N = 8.82e-4 # nutrient concentration mol-N/L (for f/2 medium)
 
-### plot functions
+### model function
 
 the.model = function(...,steps=1000){
   if((f.A+f.H+f.N)>1) return(NULL)
@@ -119,53 +121,3 @@ the.model = function(...,steps=1000){
   
   return(resul)
 }
-
-
-
-################
-
-par(mfrow=c(2,2),mai=0.2+c(0,0.2,0.2,0),oma=c(2,2,0,0))
-palette(rev(hcl.colors(8,'Dy')))
-palette(rev(hcl.colors(8,'Viri')))
-
-n.total = 31
-cex.max = .5
-cex.min = .5
-the.pch = 21
-col.white = alpha('black',0.25)
-
-
-I = 500 # light intensity uE/m2/d
-x = 1000e-6 # prey biomass concentration mol/L
-N = 8.82e-4 # nutrient concentration mol-N/L (for f/2 medium)
-source('~/Documents/AAA-mixotrophy/plot square.R', echo=TRUE)
-text(1,1,'A',adj=c(1,1),cex=2)
-
-I = 500 # light intensity uE/m2/d
-x = 0e-6 # prey biomass concentration mol/L
-N = 8.82e-4 # nutrient concentration mol-N/L (for f/2 medium)
-source('~/Documents/AAA-mixotrophy/plot square.R', echo=TRUE)
-text(1,1,'B',adj=c(1,1),cex=2)
-
-I = 0 # light intensity uE/m2/d
-x = 1000e-6 # prey biomass concentration mol/L
-N = 8.82e-4 # nutrient concentration mol-N/L (for f/2 medium)
-source('~/Documents/AAA-mixotrophy/plot square.R', echo=TRUE)
-text(1,1,'C',adj=c(1,1),cex=2)
-
-I = 500 # light intensity uE/m2/d
-x = 1000e-6 # prey biomass concentration mol/L
-N = 0.e-4 # nutrient concentration mol-N/L (for f/2 medium)
-source('~/Documents/AAA-mixotrophy/plot square.R', echo=TRUE)
-text(1,1,'D',adj=c(1,1),cex=2)
-
-mtext(side=1,TeX('autotrophic allocation, $\\phi_A$'),outer=T,line = 1)
-mtext(side=2,TeX('heterotrophic allocation, $\\phi_H$'),outer=T,line = 0)
-
-dd=seq(cex.min,cex.min+1.5*cex.max,length.out = 6)
-points(0.8+0*1:6,0.2+dd/2.5,pch=the.pch,cex=dd,col=col.white,bg=(1+c(1,3,6,9,12,15))/2,lwd=0.5)
-text(0.85+0*1:6,0.2+dd/2.5,labels=c('0.0','0.3','0.6','0.9','1.2','1.5'),pch=the.pch,adj=c(0,0.5),cex=0.7)
-text(0.8,0.8,TeX('$\\mu$ (d$^{-1}$)'),adj=c(0.,0.5),cex=0.9)
-
-
-#source('~/Documents/AAA-mixotrophy/plot vars.R', echo=TRUE)

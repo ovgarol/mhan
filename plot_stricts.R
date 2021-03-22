@@ -1,40 +1,55 @@
 library(scales)
 library(latex2exp)
 
+is.pdf = T
 to.run = F
 
 if(to.run){
   tau.A = 0
   tau.H = 0
-  source('~/Documents/AAA-mixotrophy/plot vars.R', echo=TRUE)
+  source('script_optimals.R', echo=F)
   optimal.M = optimal.list
   
   tau.A = 0.5
   tau.H = 0
-  source('~/Documents/AAA-mixotrophy/plot vars.R', echo=TRUE)
+  source('script_optimals.R', echo=F)
   optimal.A = optimal.list
   
   tau.A = 0
   tau.H = 0.5
-  source('~/Documents/AAA-mixotrophy/plot vars.R', echo=TRUE)
+  source('script_optimals.R', echo=F)
   optimal.H = optimal.list
   
   tau.A = 0.5
   tau.H = 0.5
-  source('~/Documents/AAA-mixotrophy/plot vars.R', echo=TRUE)
+  source('script_optimals.R', echo=F)
   optimal.AH = optimal.list
+  
+  code.name = paste0(format(Sys.time(),"%y%m%d-%H%M%S"),'-',round(1000*runif(1)))
+  file.name = paste0('data/MC-optimal-',code.name,'.RData')
+  save(optimal.M,optimal.A,optimal.H,optimal.AH,file=file.name)
 }
 
+if(!to.run){
+  code.name = '210322-172640-11'
+  file.name = paste0('data/MC-optimal-',code.name,'.RData')
+  load(file.name)
+} 
 
+optimal.M = optimal.M[optimal.M$mu>1e-2,]
+optimal.A = optimal.A[optimal.A$mu>1e-2,]
+optimal.H = optimal.H[optimal.H$mu>1e-2,]
+optimal.AH = optimal.AH[optimal.AH$mu>1e-2,]
+
+file.name = paste0('test/MC-results-',code.name,'.pdf')
+if(is.pdf) pdf(file.name,width=5,height=5)
 
 par(mfrow=c(2,2),mai=0.2+c(0,0.2,0.2,0),oma=c(2,2,0,0))
 
 ## plot AH-mu diagram
 
-#palette((hcl.colors(10,'Temps')))
 palette(rev(hcl.colors(8,'Viri')))
 col.white = alpha('black',0.25)
-
 
 cex.min = 0.5
 cex.max = 0.5
@@ -370,15 +385,56 @@ mtext(side=2,TeX('Nitrogen concentration, R$_N$ ($\\mu$mol-N L$^{-1}$)'),outer=T
 ####
 
 optimal.list = optimal.M
-plot(optimal.list$I,optimal.list$f.H,log='x')
+plot(optimal.list$I,optimal.list$f.H,log='x',ylim=c(0,1),xlim=c(1,1000))
+lines(supsmu(optimal.list$I,optimal.list$f.H),col='red',lwd=2)
 
 optimal.list = optimal.A
-plot(optimal.list$I,optimal.list$f.H,log='x')
+plot(optimal.list$I,optimal.list$f.H,log='x',ylim=c(0,1),xlim=c(1,1000))
+lines(supsmu(optimal.list$I,optimal.list$f.H),col='red',lwd=2)
 
 optimal.list = optimal.H
-plot(optimal.list$I,optimal.list$f.H,log='x')
+plot(optimal.list$I,optimal.list$f.H,log='x',ylim=c(0,1),xlim=c(1,1000))
+lines(supsmu(optimal.list$I,optimal.list$f.H),col='red',lwd=2)
 
 optimal.list = optimal.AH
-plot(optimal.list$I,optimal.list$f.H,log='x')
+plot(optimal.list$I,optimal.list$f.H,log='x',ylim=c(0,1),xlim=c(1,1000))
+lines(supsmu(optimal.list$I,optimal.list$f.H),col='red',lwd=2)
 
 
+####
+
+optimal.list = optimal.M
+plot(optimal.list$x*1e6,optimal.list$f.H,log='x',ylim=c(0,1),xlim=c(1,1000))
+lines(supsmu(optimal.list$x*1e6,optimal.list$f.H),col='red',lwd=2)
+
+optimal.list = optimal.A
+plot(optimal.list$x*1e6,optimal.list$f.H,log='x',ylim=c(0,1),xlim=c(1,1000))
+lines(supsmu(optimal.list$x*1e6,optimal.list$f.H),col='red',lwd=2)
+
+optimal.list = optimal.H
+plot(optimal.list$x*1e6,optimal.list$f.H,log='x',ylim=c(0,1),xlim=c(1,1000))
+lines(supsmu(optimal.list$x*1e6,optimal.list$f.H),col='red',lwd=2)
+
+optimal.list = optimal.AH
+plot(optimal.list$x*1e6,optimal.list$f.H,log='x',ylim=c(0,1),xlim=c(1,1000))
+lines(supsmu(optimal.list$x*1e6,optimal.list$f.H),col='red',lwd=2)
+
+####
+
+optimal.list = optimal.M
+plot(optimal.list$N*1e6,optimal.list$f.H,log='x',ylim=c(0,1),xlim=c(1,1000))
+lines(supsmu(optimal.list$N*1e6,optimal.list$f.H),col='red',lwd=2)
+
+optimal.list = optimal.A
+plot(optimal.list$N*1e6,optimal.list$f.H,log='x',ylim=c(0,1),xlim=c(1,1000))
+lines(supsmu(optimal.list$N*1e6,optimal.list$f.H),col='red',lwd=2)
+
+optimal.list = optimal.H
+plot(optimal.list$N*1e6,optimal.list$f.H,log='x',ylim=c(0,1),xlim=c(1,1000))
+lines(supsmu(optimal.list$N*1e6,optimal.list$f.H),col='red',lwd=2)
+
+optimal.list = optimal.AH
+plot(optimal.list$N*1e6,optimal.list$f.H,log='x',ylim=c(0,1),xlim=c(1,1000))
+lines(supsmu(optimal.list$N*1e6,optimal.list$f.H),col='red',lwd=2)
+
+if(is.pdf) dev.off()

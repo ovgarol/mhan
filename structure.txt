@@ -1,0 +1,8 @@
+#File description
+#model2.R contains the model with constants.
+
+#script_panels creates a panel plot for diferent resource availabilities.
+#script_square.R plots an individual fA,fH -> mu panel.
+
+#script_optimals.R runs a MC to calculate the optimal allocations with randomized light, prey, and nutrient availability.
+#plot_stricts.R calculates and plots the MC for optimal allocation.
