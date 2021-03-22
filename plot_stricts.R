@@ -1,8 +1,10 @@
 library(scales)
 library(latex2exp)
 
+the.pch = 21
+
 is.pdf = T
-to.run = T
+to.run = F
 
 if(to.run){
   tau.A = 0
@@ -33,6 +35,9 @@ if(to.run){
 if(!to.run){
   code.name = '210322-172640-11'
   file.name = paste0('data/MC-optimal-',code.name,'.RData')
+  
+  #code.name = 'results_2'
+  #file.name = paste0('data/',code.name,'.RData')
   load(file.name)
 } 
 
