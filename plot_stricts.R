@@ -2,7 +2,7 @@ library(scales)
 library(latex2exp)
 
 is.pdf = T
-to.run = F
+to.run = T
 
 if(to.run){
   tau.A = 0

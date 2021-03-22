@@ -2,7 +2,7 @@ n.total = 31
 model.list = NULL
 optimal.list = NULL
 
-for(i in 1:1000){
+for(i in 1:100){
   I = 10**(runif(1,-1,3)) # 0.1 to 1000 uE m-2 d-1 
   x = 10**(runif(1,-1,3))*1e-6 # 0.1 to 1000 umol-C L-1
   N = 10**(runif(1,-1,3))*1e-6 # 0.1 to 1000 umol-N L-1 
