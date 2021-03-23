@@ -20,7 +20,7 @@ for(i in 1:n.total)for(j in 1:n.total){
         tamano = cex.min+cex.max*m$mu
         points(f.A,f.H,cex=tamano,pch=the.pch,bg=colores,col=col.white,lwd=0.5)
       }
-      #else  points(f.A,f.H,cex=.99,pch=4,col=col.white,lwd=0.5)
+      if(!is.nan(m$mu)&m$mu<1e-2&m$mu>0) points(f.A,f.H,cex=cex.min,pch=1,col=col.white,lwd=0.5)
       mu.list = c(mu.list,m$mu)
       fA.list = c(fA.list,f.A)
       fH.list = c(fH.list,f.H)
